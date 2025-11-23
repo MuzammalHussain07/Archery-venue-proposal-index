@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ARchery — Proposal & Deliverables (Demo)</title>
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;background:#0f172a;color:#e6edf3}
+    header{background:linear-gradient(90deg,#0ea5e9,#7c3aed);padding:28px 20px}
+    h1{margin:0;font-size:24px}
+    .container{max-width:980px;margin:20px auto;padding:20px}
+    .card{background:#071029;padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6);margin-bottom:16px}
+    h2{color:#7dd3fc;margin-top:0}
+    ul{margin:8px 0 8px 18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .pill{display:inline-block;background:#06203a;color:#9be4ff;padding:6px 10px;border-radius:999px;font-weight:600}
+    pre{background:#001122;color:#9be4ff;padding:12px;border-radius:8px;overflow:auto}
+    footer{padding:14px;text-align:center;color:#9fb4c8}
+    .cta{display:inline-block;background:#7c3aed;color:white;padding:10px 14px;border-radius:10px;text-decoration:none;margin-top:8px}
+    @media(max-width:780px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ARchery — 11-Lane Immersive Archery Venue<br/><small style="opacity:.85">Proposal • Deliverables • Timeline • Cost Model (copy-paste demo)</small></h1>
+    </div>
+  </header>
+  <main class="container">
+    <section class="card">
+      <h2>One-line Summary</h2>
+      <p>Deliver a production-grade, local-LAN, 11-lane ARchery system: lane apps (macOS/Unity), BLE bow support, impact detection, LED control, iPad UI, and a staff Hub. Full IP transfer (source + exclusive rights).</p>
+    </section>
+
+    <section class="card">
+      <h2>Deliverables (What you will get)</h2>
+      <ul>
+        <li><strong>11 Lane Apps</strong> — macOS builds (Apple Silicon), Unity project, lane config, lane-side web server for iPad UI.</li>
+        <li><strong>Hub App</strong> — macOS app (Tile dashboard, session control, logging, local DB).</li>
+        <li><strong>BLE Bow Module</strong> — macOS BLE manager, protocol docs, sample firmware handshake, SOS triple-press handling.</li>
+        <li><strong>Hit Detection Pipeline</strong> — Arduino/USB piezo input, camera frame matching, calibration tool (projector→camera mapping).</li>
+        <li><strong>LED Control</strong> — WLED/UDP controller library, sample FX sequences, mapping to lane events.</li>
+        <li><strong>Game Engine</strong> — 10 light-weight Unity games (2D/2.5D), assets, difficulty scaling, 1080p@120Hz output presets.</li>
+        <li><strong>iPad UI</strong> — Local HTML/JS served by each lane; game select, difficulty, help request.</li>
+        <li><strong>Docs & Deployment</strong> — Install guide, calibration guide, runbooks, hardware wiring, test plans.</li>
+        <li><strong>Source & IP</strong> — Full repo with build scripts, CI, and exclusive IP transfer upon final payment.</li>
+        <li><strong>QA & Handover</strong> — 2-week on-site/remote acceptance, bug-fix window, staff training videos.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Tech Plan (Summary)</h2>
+      <div class="grid">
+        <div>
+          <h3>Lane (Runtime)</h3>
+          <ul>
+            <li>Unity (LTS) for games & UI overlay</li>
+            <li>macOS native wrapper for USB and BLE (Swift helper + Unity plugin)</li>
+            <li>Local web server (lightweight Node/Express) serving iPad UI</li>
+            <li>OpenCV for camera-frame processing (Native plugin or separate process)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Hub</h3>
+          <ul>
+            <li>macOS app (Electron + native helper) or native Swift app</li>
+            <li>Local DB: SQLite for quick install or Postgres for larger installs</li>
+            <li>LAN discovery via mDNS/UDP, secure token per lane</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Core Pipelines</h2>
+      <ol>
+        <li><strong>Hit detection:</strong> Piezo → USB serial event → timestamp → match nearest camera frame → compute XY → map to game coordinates.</li>
+        <li><strong>BLE Bow:</strong> Bond + persistent connections (6 bows/slot), active-bow gating, triple-press SOS to Hub.</li>
+        <li><strong>LED:</strong> WLED over UDP/HTTP; lane events trigger FX playlists.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Milestones & Timeline (4 months)</h2>
+      <ul>
+        <li><strong>Month 1</strong>: Architecture, prototypes for BLE, USB sensors, camera capture, simple game.</li>
+        <li><strong>Month 2</strong>: Full lane pipeline proof (camera→hit mapping), basic Unity game-play loop, iPad UI prototype.</li>
+        <li><strong>Month 3</strong>: 5 games, robust BLE handling, LED integration, Hub basic controls.</li>
+        <li><strong>Month 4</strong>: Remaining games, QA/performance, deployment scripts, staff training & handover.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Cost Model (Example, changeable)</h2>
+      <p>Below is a sample fixed-cost proposal tied to milestones. Replace numbers with your budget.</p>
+      <pre>
+Milestone 1 (Prototypes) .................. $25,000  (20%)
+Milestone 2 (Lane Pipeline, core) .......... $30,000  (24%)
+Milestone 3 (Games + iPad UI) ............. $30,000  (24%)
+Milestone 4 (Hub, QA, Deployment) .......... $35,000  (28%)
+TOTAL (4 months) .......................... $120,000
+IP Transfer & Source ---------------------- Included on final payment
+      </pre>
+      <p class="pill">Maintenance: 10% annual (optional)</p>
+    </section>
+
+    <section class="card">
+      <h2>Stability & Non-Functional Requirements</h2>
+      <ul>
+        <li>Real-time hit-to-game latency &lt; 50ms end-to-end</li>
+        <li>Uptime: system continues gracefully on single-lane failures</li>
+        <li>Deterministic behavior: local logging, replay capture for debugging</li>
+        <li>Safety: SOS + Help flows trigger immediate Hub notification</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>What we need from you (client)</h2>
+      <ul>
+        <li>Access to the venue for hardware mounting & calibration</li>
+        <li>Sample bows and sensors (or acceptance of our procurement quote)</li>
+        <li>Decide on IP transfer timing and final acceptance criteria</li>
+        <li>A single point of contact for acceptance & scheduling</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>How to share with stakeholders (GitHub ready)</h2>
+      <ol>
+        <li>Create a repository named <strong>archery-venue-proposal</strong>.</li>
+        <li>Add a new file <strong>index.html</strong> and paste this page’s HTML (this file).</li>
+        <li>Commit and push. Share the repo link with your stakeholders.</li>
+      </ol>
+      <a class="cta" href="#">Create GitHub Repo & Paste</a>
+    </section>
+
+    <section class="card">
+      <h2>Portfolio request & Next steps</h2>
+      <p>If you want to proceed, please request the following from bidder teams:</p>
+      <ul>
+        <li>2–3 relevant case studies (venue installs, Unity real-time systems)</li>
+        <li>Code samples for BLE + USB serial + OpenCV work (private link is fine)</li>
+        <li>Proposed team CVs and exact milestone-cost table</li>
+      </ul>
+    </section>
+
+  </main>
+  <footer>
+    <small>Generated demo — copy into a GitHub repo and present to stakeholders. Contact us to convert this proposal into a full SOW and contract.</small>
+  </footer>
+</body>
+</html>
